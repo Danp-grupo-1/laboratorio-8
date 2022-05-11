@@ -1,5 +1,7 @@
 package dev.araozu.laboratorio2.model
 
+import androidx.annotation.DrawableRes
+
 data class Candidato(
     val nombre: String,
     val partido: Partido,
@@ -7,7 +9,7 @@ data class Candidato(
      * Un puntero hacia un recurso del proyecto de android,
      * obtenido con R.drawable.nombre_foto
      */
-    val foto: Int,
+    @DrawableRes val foto: Int,
     val biografia: String,
     val propuestas: List<String>,
 )
