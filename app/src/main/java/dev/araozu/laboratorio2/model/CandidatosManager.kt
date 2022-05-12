@@ -17,7 +17,7 @@ object CandidatosManager {
     private val candidatoAsa1 = Candidato(
         "Enrique Salas Carreño",
         partido1,
-        R.drawable.question_mark,
+        R.drawable.enrique_salas_carreno,
         "",
         arrayListOf()
     )
@@ -25,7 +25,7 @@ object CandidatosManager {
     private val candidatoAsa2 = Candidato(
         "Mariano Otazu Yana",
         partido2,
-        R.drawable.question_mark,
+        R.drawable.mariano_otazu_yana,
         "",
         arrayListOf()
     )
@@ -33,7 +33,7 @@ object CandidatosManager {
     private val candidatoAsa3 = Candidato(
         "Anibal Agustin Salas Flores",
         partido3,
-        R.drawable.question_mark,
+        R.drawable.anibal_agustin_salas_flores,
         "",
         arrayListOf()
     )

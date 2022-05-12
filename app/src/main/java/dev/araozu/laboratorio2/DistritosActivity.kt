@@ -1,4 +1,4 @@
-package com.lab02.compose
+package dev.araozu.laboratorio2
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import dev.araozu.laboratorio2.Destinations
 import dev.araozu.laboratorio2.model.Distrito
 
 var listaDistritos = Distrito.values()
@@ -30,7 +29,7 @@ fun BotonDistrito(distrito: Distrito, navController: NavController) {
             )
         }) {
             Text(
-                text = distrito.name,
+                text = distrito.toString(),
                 style = TextStyle(
                     fontSize = 20.sp, fontWeight = FontWeight.Light, fontStyle = FontStyle.Italic
                 )
@@ -51,7 +50,7 @@ fun ListDistritos(navController: NavController) {
                 style = TextStyle(
                     color = Color.Blue,
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Black
+                    fontWeight = FontWeight.Medium
                 )
             )
         }
