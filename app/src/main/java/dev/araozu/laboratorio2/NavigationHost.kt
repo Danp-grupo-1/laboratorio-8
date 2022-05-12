@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.lab02.compose.ListDistritos
 
 @Composable
 fun NavigationHost(){
@@ -12,7 +13,8 @@ fun NavigationHost(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Destinations.DistritosScreen.route){
         composable(route = Destinations.DistritosScreen.route){
-            Distritos(navController)
+            ListDistritos(navController)
+            //Distritos(navController)
         }
         composable(
             route = Destinations.CandidatosScreen.route,
@@ -20,7 +22,7 @@ fun NavigationHost(){
         ){
                 it->var distrito = it.arguments?.getString("distrito")
             requireNotNull(distrito)
-            Screen(distrito)
+            ListCandidatos(distrito)
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -21,6 +22,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.lab02.compose.BotonDistrito
+import com.lab02.compose.listaDistritos
 import dev.araozu.laboratorio2.model.Candidato
 import dev.araozu.laboratorio2.model.CandidatosManager
 import dev.araozu.laboratorio2.model.Distrito
@@ -36,31 +40,6 @@ val candidatoEjemplo = Candidato(
     biografia = "Mono NFT es un candidato del partido politico APLA para Cayma, creado en 2019",
     propuestas = arrayListOf("Legalizar Bitcoin", "Legalizar NFT", "Regular el acceso a internet"),
 )
-
-class CandidatosActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: recuperar nombre del distrito de la otra actividad
-        val distrito = Distrito.fromString("Cayma")
-        val candidatos = distrito?.let { CandidatosManager.getCandidatos(it) } ?: arrayListOf(
-            candidatoEjemplo)
-
-        setContent {
-            Laboratorio2Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    LazyRow {
-                        items(candidatos) { TarjetaCandidato(it) }
-                    }
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun TarjetaCandidato(candidato: Candidato) {
@@ -108,21 +87,25 @@ fun TarjetaCandidato(candidato: Candidato) {
     }
 }
 
-
 @Composable
-fun Screen(
+fun ListCandidatos(
     distrito:String
 ){
-    Column() {
-        Text(
-            text = distrito,
-            style = TextStyle(color = Color.White),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Black
-        )
-        TarjetaCandidato(candidato = candidatoEjemplo)
+    //ACA se debe crear un Distrito a partir de los Enum y el string dsitrito que llega
+    val distrito = Distrito.fromString("AREQUIPA")
+    var listaCandidatos = distrito?.let { CandidatosManager.getCandidatos(it) } ?: arrayListOf(
+        candidatoEjemplo)
+
+    LazyColumn(contentPadding = PaddingValues(16.dp)){
+        item { Text(text = "Distritos de la provincia de Arequipa",
+            style = TextStyle(color = Color.Blue,fontSize = 20.sp,fontWeight = FontWeight.Black))
+        }
+        items(listaCandidatos){
+            TarjetaCandidato(it)
+        }
     }
 }
+
 
 
 
