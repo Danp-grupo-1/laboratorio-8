@@ -10,6 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.lab02.compose.ListDistritos
 import dev.araozu.laboratorio2.ui.theme.Laboratorio2Theme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +27,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //Greeting("Android")
                     NavigationHost()
                 }
             }
@@ -31,14 +35,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    Laboratorio2Theme {
-        Greeting("Android")
+fun NavigationHost() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Destinations.DistritosScreen.route) {
+        composable(route = Destinations.DistritosScreen.route) {
+            ListDistritos(navController)
+        }
+        composable(
+            route = Destinations.CandidatosScreen.route,
+            arguments = listOf(navArgument("distrito") { defaultValue = "Arequipa" })
+        ) {
+            val distrito = it.arguments?.getString("distrito")
+            requireNotNull(distrito)
+            ListCandidatos(distrito)
+        }
     }
 }

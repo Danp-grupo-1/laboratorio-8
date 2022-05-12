@@ -1,6 +1,5 @@
 package dev.araozu.laboratorio2.model
 
-import androidx.compose.ui.text.toUpperCase
 import java.lang.IllegalArgumentException
 
 enum class Distrito {
@@ -14,12 +13,8 @@ enum class Distrito {
     JOSE_LUIS_BUSTAMANTE_Y_RIVERO,
     MARIANO_MELGAR,
     MIRAFLORES,
-    MOLLEBAYA,
     PAUCARPATA,
-    POCSI,
-    POLOBAYA,
-    QUEQUEÑA,
-    SABANDÍA,
+    SABANDIA,
     SACHACA,
     SOCABAYA,
     TIABAYA,

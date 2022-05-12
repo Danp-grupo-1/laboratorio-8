@@ -1,12 +1,8 @@
 package dev.araozu.laboratorio2
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
@@ -20,25 +16,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.lab02.compose.BotonDistrito
-import com.lab02.compose.listaDistritos
 import dev.araozu.laboratorio2.model.Candidato
 import dev.araozu.laboratorio2.model.CandidatosManager
 import dev.araozu.laboratorio2.model.Distrito
 import dev.araozu.laboratorio2.model.Partido
-import dev.araozu.laboratorio2.ui.theme.Laboratorio2Theme
 
-val partidoEjemplo = Partido(nombre = "APLA")
-
-val candidatoEjemplo = Candidato(
-    nombre = "Mono NFT",
-    partido = partidoEjemplo,
-    foto = R.drawable.mono_nft,
-    biografia = "Mono NFT es un candidato del partido politico APLA para Cayma, creado en 2019",
-    propuestas = arrayListOf("Legalizar Bitcoin", "Legalizar NFT", "Regular el acceso a internet"),
+val candidatoDefecto = Candidato(
+    nombre = "No se ha encontrado ningún candidato.",
+    partido = Partido(""),
+    foto = R.drawable.question_mark,
+    biografia = "",
+    propuestas = arrayListOf(),
 )
 
 @Composable
@@ -72,15 +63,17 @@ fun TarjetaCandidato(candidato: Candidato) {
 
                 Text(text = candidato.biografia)
 
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "Propuestas:",
-                    fontWeight = FontWeight.Medium,
-                )
-                Spacer(modifier = Modifier.height(10.dp))
+                if (candidato.propuestas.isNotEmpty()) {
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(
+                        text = "Propuestas:",
+                        fontWeight = FontWeight.Medium,
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                for (propuesta in candidato.propuestas) {
-                    Text(propuesta)
+                    for (propuesta in candidato.propuestas) {
+                        Text(propuesta)
+                    }
                 }
             }
         }
@@ -89,41 +82,38 @@ fun TarjetaCandidato(candidato: Candidato) {
 
 @Composable
 fun ListCandidatos(
-    distrito:String
-){
-    //ACA se debe crear un Distrito a partir de los Enum y el string dsitrito que llega
-    val distrito = Distrito.fromString("AREQUIPA")
-    var listaCandidatos = distrito?.let { CandidatosManager.getCandidatos(it) } ?: arrayListOf(
-        candidatoEjemplo)
-
-    LazyColumn(contentPadding = PaddingValues(16.dp)){
-        item { Text(text = "Distritos de la provincia de Arequipa",
-            style = TextStyle(color = Color.Blue,fontSize = 20.sp,fontWeight = FontWeight.Black))
+    distritoStr: String
+) {
+    val distrito = Distrito.fromString(distritoStr)
+    val listaCandidatos: List<Candidato> =
+        if (distrito == null) {
+            arrayListOf(candidatoDefecto)
+        } else {
+            val candidatos = CandidatosManager.getCandidatos(distrito)
+            candidatos.ifEmpty { arrayListOf(candidatoDefecto) }
         }
-        items(listaCandidatos){
+
+
+    LazyColumn(contentPadding = PaddingValues(16.dp)) {
+        item {
+            Text(
+                text = "Distritos de la provincia de Arequipa",
+                style = TextStyle(
+                    color = Color.Blue,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Black
+                )
+            )
+        }
+        items(listaCandidatos) {
             TarjetaCandidato(it)
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@Preview
+@Composable
+fun Prev() {
+    ListCandidatos(distritoStr = "Arequipa")
+}
