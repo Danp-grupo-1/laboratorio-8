@@ -4,44 +4,39 @@ import dev.araozu.laboratorio2.R
 import java.lang.IllegalStateException
 
 object CandidatosManager {
-    private val distritos: HashMap<Distrito, List<Candidato>> = HashMap()
+    private val candidatos: ArrayList<Candidato> = ArrayList()
 
     // Partidos
-    private val partido1 = Partido("Movimiento Regional Reveladora")
-    private val partido2 = Partido("Frente Popular Agricola del Peru")
-    private val partido3 = Partido("Arequipa transformacion")
-    private val partido4 = Partido("Arequipa,Tradicion y Futuro")
+    private val partido3 = Partidos.Arequipa_transformacion
+    private val partido4 = Partidos.Arequipa_Tradicion_Futuro
 
 
     // Candidatos Alto Selva Alegre
     private val candidatoAsa1 = Candidato(
         "Enrique Salas Carreño",
-        partido1,
+        Partidos.Movimiento_Regional_Reveladora,
         R.drawable.enrique_salas_carreno,
         "",
-        arrayListOf()
+        arrayListOf(),
+        Distrito.ALTO_SELVA_ALEGRE
     )
 
     private val candidatoAsa2 = Candidato(
         "Mariano Otazu Yana",
-        partido2,
+        Partidos.Frente_Popular_Agricola_del_Peru,
         R.drawable.mariano_otazu_yana,
         "",
-        arrayListOf()
+        arrayListOf(),
+        Distrito.ALTO_SELVA_ALEGRE
     )
 
     private val candidatoAsa3 = Candidato(
         "Anibal Agustin Salas Flores",
-        partido3,
+        Partidos.Arequipa_transformacion,
         R.drawable.anibal_agustin_salas_flores,
         "",
-        arrayListOf()
-    )
-
-    private val candidatosAsa: List<Candidato> = listOf(
-        candidatoAsa1,
-        candidatoAsa2,
-        candidatoAsa3
+        arrayListOf(),
+        Distrito.ALTO_SELVA_ALEGRE
     )
 
     // Candidatos Arequipa
@@ -50,7 +45,8 @@ object CandidatosManager {
         partido3,
         R.drawable.question_mark,
         "",
-        arrayListOf()
+        arrayListOf(),
+        Distrito.AREQUIPA
     )
 
     private val candidatoAqp2 = Candidato(
@@ -58,23 +54,24 @@ object CandidatosManager {
         partido4,
         R.drawable.question_mark,
         "",
-        arrayListOf()
+        arrayListOf(),
+        Distrito.AREQUIPA
     )
-
-    private val candidatosAqp: List<Candidato> = listOf(
-        candidatoAqp1,
-        candidatoAqp2,
-    )
-
 
     init {
-        Distrito.values().forEach { distritos[it] = arrayListOf() }
-        distritos[Distrito.ALTO_SELVA_ALEGRE] = candidatosAsa
-        distritos[Distrito.AREQUIPA] = candidatosAqp
+        candidatos.add(candidatoAsa1)
+        candidatos.add(candidatoAsa2)
+        candidatos.add(candidatoAsa3)
+        candidatos.add(candidatoAqp1)
+        candidatos.add(candidatoAqp2)
     }
 
-    fun getCandidatos(distrito: Distrito): List<Candidato> {
-        return distritos[distrito]
-            ?: throw IllegalStateException("El distrito $distrito no tiene candidatos")
+    fun getCandidatosPorDistrito(distrito: Distrito): List<Candidato> {
+        return candidatos.filter { it.distrito == distrito }
     }
+
+    fun getCandidatosPorPartido(partido: Partidos): List<Candidato> {
+        return candidatos.filter { it.partido == partido }
+    }
+
 }

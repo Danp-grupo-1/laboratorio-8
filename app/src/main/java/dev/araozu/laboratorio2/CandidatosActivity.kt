@@ -22,14 +22,15 @@ import androidx.compose.ui.unit.sp
 import dev.araozu.laboratorio2.model.Candidato
 import dev.araozu.laboratorio2.model.CandidatosManager
 import dev.araozu.laboratorio2.model.Distrito
-import dev.araozu.laboratorio2.model.Partido
+import dev.araozu.laboratorio2.model.Partidos
 
 val candidatoDefecto = Candidato(
     nombre = "No se ha encontrado ningún candidato.",
-    partido = Partido(""),
+    partido = Partidos.NINGUNO,
     foto = R.drawable.question_mark,
     biografia = "",
     propuestas = arrayListOf(),
+    distrito = Distrito.AREQUIPA,
 )
 
 @Composable
@@ -56,7 +57,7 @@ fun TarjetaCandidato(candidato: Candidato) {
             ) {
                 Text(text = candidato.nombre, fontSize = 30.sp, fontWeight = FontWeight.Medium)
                 Text(
-                    text = candidato.partido.nombre,
+                    text = candidato.partido.toString(),
                     fontWeight = FontWeight.Light,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
@@ -89,7 +90,7 @@ fun ListCandidatos(
         if (distrito == null) {
             arrayListOf(candidatoDefecto)
         } else {
-            val candidatos = CandidatosManager.getCandidatos(distrito)
+            val candidatos = CandidatosManager.getCandidatosPorDistrito(distrito)
             candidatos.ifEmpty { arrayListOf(candidatoDefecto) }
         }
 
@@ -115,5 +116,5 @@ fun ListCandidatos(
 @Preview
 @Composable
 fun Prev() {
-    ListCandidatos(distritoStr = "Arequipa")
+    ListCandidatos(distritoStr = "pauca")
 }
