@@ -50,16 +50,25 @@ fun NavigationHost() {
                 ListDistritos(navController)
             }
             composable(
-                route = Destinations.CandidatosScreen.route,
+                route = Destinations.CandidatosDistritoScreen.route,
                 arguments = listOf(navArgument("distrito") { defaultValue = "Arequipa" })
             ) {
                 val distrito = it.arguments?.getString("distrito")
                 requireNotNull(distrito)
-                ListCandidatos(distrito)
+                ListCandidatosDistrito(distrito)
             }
             composable(
                 route = Destinations.PartidosScreen.route){
-                PartidosScreen()
+                ListPartidos(navController)
+            }
+            //
+            composable(
+                route = Destinations.CandidatosPartidoScreen.route,
+                arguments = listOf(navArgument("partido") { defaultValue = "Arequipa_Tradicion_Futuro" })
+            ) {
+                val partido = it.arguments?.getString("partido")
+                requireNotNull(partido)
+                ListCandidatosPartido(partido)
             }
         }
     }

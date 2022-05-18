@@ -1,5 +1,7 @@
 package dev.araozu.laboratorio2.model
 
+import java.lang.IllegalArgumentException
+
 enum class Partidos {
     // TODO: Colocar partidos
 
@@ -8,6 +10,16 @@ enum class Partidos {
     Frente_Popular_Agricola_del_Peru,
     Movimiento_Regional_Reveladora,
     NINGUNO;
+
+    companion object {
+        fun fromString(partido: String): Partidos? {
+            return try {
+                valueOf(partido.uppercase().replace(" ", "_"))
+            } catch (e: IllegalArgumentException) {
+                null
+            }
+        }
+    }
 
     override fun toString(): String {
         return when (this) {

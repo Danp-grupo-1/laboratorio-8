@@ -82,7 +82,7 @@ fun TarjetaCandidato(candidato: Candidato) {
 }
 
 @Composable
-fun ListCandidatos(
+fun ListCandidatosDistrito(
     distritoStr: String
 ) {
     val distrito = Distrito.fromString(distritoStr)
@@ -98,7 +98,41 @@ fun ListCandidatos(
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         item {
             Text(
-                text = "Distritos de la provincia de Arequipa",
+                text = distrito.toString(),
+                style = TextStyle(
+                    color = Color.Blue,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Black
+                )
+            )
+        }
+        items(listaCandidatos) {
+            TarjetaCandidato(it)
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+
+@Composable
+fun ListCandidatosPartido(
+    partidoStr: String
+) {
+    val partido = Partidos.fromString(partidoStr)
+    val listaCandidatos: List<Candidato> =
+        if (partido == null) {
+            arrayListOf(candidatoDefecto)
+        } else {
+            //OJO ACA, POR ALGUNA RAZON NO FILTRA POR PARTIDOS, TALVEZ SE ME ESTA PASANDO ALGO
+            val candidatos = CandidatosManager.getCandidatosPorPartido(partido)
+            candidatos.ifEmpty { arrayListOf(candidatoDefecto) }
+        }
+
+
+    LazyColumn(contentPadding = PaddingValues(16.dp)) {
+        item {
+            Text(
+                text = partidoStr,
                 style = TextStyle(
                     color = Color.Blue,
                     fontSize = 20.sp,
@@ -116,5 +150,5 @@ fun ListCandidatos(
 @Preview
 @Composable
 fun Prev() {
-    ListCandidatos(distritoStr = "pauca")
+    ListCandidatosDistrito(distritoStr = "pauca")
 }

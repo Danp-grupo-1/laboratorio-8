@@ -23,7 +23,7 @@ fun BotonDistrito(distrito: Distrito, navController: NavController) {
     Row(modifier = Modifier.fillMaxWidth()) {
         Button(onClick = {
             navController.navigate(
-                route = Destinations.CandidatosScreen.createRoute(
+                route = Destinations.CandidatosDistritoScreen.createRoute(
                     distrito.name
                 )
             )
