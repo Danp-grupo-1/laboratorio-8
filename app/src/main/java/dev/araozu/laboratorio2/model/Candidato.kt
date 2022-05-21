@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 
 data class Candidato(
     val nombre: String,
-    val partido: Partidos,
+    val partido: Partido,
     /**
      * Un puntero hacia un recurso del proyecto de android,
      * obtenido con R.drawable.nombre_foto

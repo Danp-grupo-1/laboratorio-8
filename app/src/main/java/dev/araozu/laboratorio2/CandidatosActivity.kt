@@ -22,11 +22,11 @@ import androidx.compose.ui.unit.sp
 import dev.araozu.laboratorio2.model.Candidato
 import dev.araozu.laboratorio2.model.CandidatosManager
 import dev.araozu.laboratorio2.model.Distrito
-import dev.araozu.laboratorio2.model.Partidos
+import dev.araozu.laboratorio2.model.Partido
 
 val candidatoDefecto = Candidato(
     nombre = "No se ha encontrado ningún candidato.",
-    partido = Partidos.NINGUNO,
+    partido = Partido.NINGUNO,
     foto = R.drawable.question_mark,
     biografia = "",
     propuestas = arrayListOf(),
@@ -55,7 +55,7 @@ fun TarjetaCandidato(candidato: Candidato) {
             Column(
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text(text = candidato.nombre, fontSize = 30.sp, fontWeight = FontWeight.Medium)
+                Text(text = candidato.nombre, fontSize = 20.sp, fontWeight = FontWeight.Medium)
                 Text(
                     text = candidato.partido.toString(),
                     fontWeight = FontWeight.Light,
@@ -98,12 +98,13 @@ fun ListCandidatosDistrito(
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         item {
             Text(
-                text = distrito.toString(),
+                text = distrito?.toString() ?: "Distritos",
                 style = TextStyle(
                     color = Color.Blue,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Black
-                )
+                ),
+                modifier = Modifier.padding(vertical = 10.dp)
             )
         }
         items(listaCandidatos) {
@@ -118,26 +119,23 @@ fun ListCandidatosDistrito(
 fun ListCandidatosPartido(
     partidoStr: String
 ) {
-    val partido = Partidos.fromString(partidoStr)
+    val partido = Partido.fromString(partidoStr)
     val listaCandidatos: List<Candidato> =
-        if (partido == null) {
-            arrayListOf(candidatoDefecto)
-        } else {
-            //OJO ACA, POR ALGUNA RAZON NO FILTRA POR PARTIDOS, TALVEZ SE ME ESTA PASANDO ALGO
-            val candidatos = CandidatosManager.getCandidatosPorPartido(partido)
-            candidatos.ifEmpty { arrayListOf(candidatoDefecto) }
-        }
+        CandidatosManager
+            .getCandidatosPorPartido(partido)
+            .ifEmpty { arrayListOf(candidatoDefecto) }
 
 
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         item {
             Text(
-                text = partidoStr,
+                text = partido.toString(),
                 style = TextStyle(
                     color = Color.Blue,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Black
-                )
+                ),
+                modifier = Modifier.padding(vertical = 10.dp)
             )
         }
         items(listaCandidatos) {
@@ -150,5 +148,5 @@ fun ListCandidatosPartido(
 @Preview
 @Composable
 fun Prev() {
-    ListCandidatosDistrito(distritoStr = "pauca")
+    ListCandidatosDistrito(distritoStr = "Arequipa")
 }

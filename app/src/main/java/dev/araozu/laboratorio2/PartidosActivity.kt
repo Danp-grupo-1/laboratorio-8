@@ -14,23 +14,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import dev.araozu.laboratorio2.model.Partidos
+import dev.araozu.laboratorio2.model.Partido
 
-
-var listaPartidos = Partidos.values()
-
-//Cambiar datos partidoss
+var listaPartidos = Partido.values()
 
 @Composable
-fun BotonPartido(partido: Partidos, navController: NavController) {
+fun BotonPartido(partido: Partido, navController: NavController) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        Button(onClick = {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
             navController.navigate(
                 route = Destinations.CandidatosPartidoScreen.createRoute(
                     partido.name
                 )
             )
-        }) {
+        }
+        ) {
             Text(
                 text = partido.toString(),
                 style = TextStyle(
@@ -54,12 +54,16 @@ fun ListPartidos(navController: NavController) {
                     color = Color.Blue,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
-                )
+                ),
+                modifier = Modifier.padding(vertical = 10.dp)
             )
         }
         items(listaPartidos) {
             BotonPartido(it, navController)
             Spacer(modifier = Modifier.height(10.dp))
+        }
+        item {
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }

@@ -21,13 +21,16 @@ var listaDistritos = Distrito.values()
 @Composable
 fun BotonDistrito(distrito: Distrito, navController: NavController) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        Button(onClick = {
-            navController.navigate(
-                route = Destinations.CandidatosDistritoScreen.createRoute(
-                    distrito.name
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                navController.navigate(
+                    route = Destinations.CandidatosDistritoScreen.createRoute(
+                        distrito.name
+                    )
                 )
-            )
-        }) {
+            }
+        ) {
             Text(
                 text = distrito.toString(),
                 style = TextStyle(
@@ -51,12 +54,16 @@ fun ListDistritos(navController: NavController) {
                     color = Color.Blue,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
-                )
+                ),
+                modifier = Modifier.padding(vertical = 10.dp)
             )
         }
         items(listaDistritos) {
             BotonDistrito(it, navController)
             Spacer(modifier = Modifier.height(10.dp))
+        }
+        item {
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
