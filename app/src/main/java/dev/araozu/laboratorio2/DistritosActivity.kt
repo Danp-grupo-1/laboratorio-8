@@ -3,11 +3,12 @@ package dev.araozu.laboratorio2
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -57,7 +58,7 @@ fun ListDistritos(navController: NavController) {
             Text(
                 text = "Buscar por distritos",
                 style = TextStyle(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
                 ),
@@ -69,7 +70,7 @@ fun ListDistritos(navController: NavController) {
             Spacer(modifier = Modifier.height(10.dp))
         }
         item {
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(60.dp))
         }
     }
 }

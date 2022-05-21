@@ -1,15 +1,14 @@
 package dev.araozu.laboratorio2
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -28,7 +27,7 @@ class MainActivity : ComponentActivity() {
             Proyecto1Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     NavigationHost()
                 }
@@ -40,6 +39,8 @@ class MainActivity : ComponentActivity() {
 /**
  * Configura las rutas para cambiar entre interfaces
  */
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationHost() {
     val navController = rememberNavController()
@@ -103,14 +104,11 @@ fun BottomNavigation(navController: NavController) {
         BottomNavItem.PartidosBottom,
     )
 
-    BottomNavigation(
-        backgroundColor = colorResource(id = R.color.white),
-        contentColor = Color.Black,
-    ) {
+    NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
                 label = {
                     Text(
@@ -118,8 +116,6 @@ fun BottomNavigation(navController: NavController) {
                         fontSize = 12.sp
                     )
                 },
-                selectedContentColor = MaterialTheme.colors.primary,
-                unselectedContentColor = Color.Black.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screen_route,
                 onClick = {
