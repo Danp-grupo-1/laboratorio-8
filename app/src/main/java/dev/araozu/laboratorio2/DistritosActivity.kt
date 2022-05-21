@@ -16,7 +16,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.araozu.laboratorio2.model.Distrito
 
-var listaDistritos = Distrito.values()
+var listaDistritos = Distrito.values().let {
+    it.sortBy { p -> p.name }
+    it
+}
 
 @Composable
 fun BotonDistrito(distrito: Distrito, navController: NavController) {
@@ -41,6 +44,9 @@ fun BotonDistrito(distrito: Distrito, navController: NavController) {
     }
 }
 
+/**
+ * Renderiza una lista de botones con todos los distritos de Arequipa
+ */
 @Composable
 fun ListDistritos(navController: NavController) {
     LazyColumn(
@@ -49,9 +55,9 @@ fun ListDistritos(navController: NavController) {
     ) {
         item {
             Text(
-                text = "Distritos de la provincia de Arequipa",
+                text = "Buscar por distritos",
                 style = TextStyle(
-                    color = Color.Blue,
+                    color = MaterialTheme.colors.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
                 ),

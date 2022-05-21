@@ -33,6 +33,9 @@ val candidatoDefecto = Candidato(
     distrito = Distrito.AREQUIPA,
 )
 
+/**
+ * Muestra una tarjeta de un candidato
+ */
 @Composable
 fun TarjetaCandidato(candidato: Candidato) {
     Surface(
@@ -81,6 +84,9 @@ fun TarjetaCandidato(candidato: Candidato) {
     }
 }
 
+/**
+ * Muestra una lista de candidatos filtrados segun un distrito
+ */
 @Composable
 fun ListCandidatosDistrito(
     distritoStr: String
@@ -100,7 +106,7 @@ fun ListCandidatosDistrito(
             Text(
                 text = distrito?.toString() ?: "Distritos",
                 style = TextStyle(
-                    color = Color.Blue,
+                    color = MaterialTheme.colors.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Black
                 ),
@@ -115,6 +121,9 @@ fun ListCandidatosDistrito(
 }
 
 
+/**
+ * Muestra una lista de candidatos filtrados segun un partido politico
+ */
 @Composable
 fun ListCandidatosPartido(
     partidoStr: String
@@ -131,7 +140,7 @@ fun ListCandidatosPartido(
             Text(
                 text = partido.toString(),
                 style = TextStyle(
-                    color = Color.Blue,
+                    color = MaterialTheme.colors.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Black
                 ),

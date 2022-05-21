@@ -11,12 +11,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.araozu.laboratorio2.model.Partido
 
-var listaPartidos = Partido.values()
+var listaPartidos = Partido.values().let {
+    it.sortBy { p -> p.name }
+    it
+}
 
 @Composable
 fun BotonPartido(partido: Partido, navController: NavController) {
@@ -35,12 +39,16 @@ fun BotonPartido(partido: Partido, navController: NavController) {
                 text = partido.toString(),
                 style = TextStyle(
                     fontSize = 20.sp, fontWeight = FontWeight.Light, fontStyle = FontStyle.Italic
-                )
+                ),
+                textAlign = TextAlign.Center,
             )
         }
     }
 }
 
+/**
+ * Renderiza una lista de botones con los partidos políticos
+ */
 @Composable
 fun ListPartidos(navController: NavController) {
     LazyColumn(
@@ -49,9 +57,9 @@ fun ListPartidos(navController: NavController) {
     ) {
         item {
             Text(
-                text = "Partidos de Arequipa",
+                text = "Buscar por partido político",
                 style = TextStyle(
-                    color = Color.Blue,
+                    color = MaterialTheme.colors.primary,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
                 ),
@@ -59,8 +67,10 @@ fun ListPartidos(navController: NavController) {
             )
         }
         items(listaPartidos) {
-            BotonPartido(it, navController)
-            Spacer(modifier = Modifier.height(10.dp))
+            if (it != Partido.NINGUNO) {
+                BotonPartido(it, navController)
+                Spacer(modifier = Modifier.height(10.dp))
+            }
         }
         item {
             Spacer(modifier = Modifier.height(40.dp))

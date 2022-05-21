@@ -19,13 +19,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import dev.araozu.laboratorio2.ui.theme.Laboratorio2Theme
+import dev.araozu.laboratorio2.ui.theme.Proyecto1Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Laboratorio2Theme {
+            Proyecto1Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -37,6 +37,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * Configura las rutas para cambiar entre interfaces
+ */
 @Composable
 fun NavigationHost() {
     val navController = rememberNavController()
@@ -115,7 +118,7 @@ fun BottomNavigation(navController: NavController) {
                         fontSize = 12.sp
                     )
                 },
-                selectedContentColor = Color.Black,
+                selectedContentColor = MaterialTheme.colors.primary,
                 unselectedContentColor = Color.Black.copy(0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screen_route,
