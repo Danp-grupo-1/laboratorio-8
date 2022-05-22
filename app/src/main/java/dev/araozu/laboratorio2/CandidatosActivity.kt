@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import dev.araozu.laboratorio2.model.Candidato
 import dev.araozu.laboratorio2.model.CandidatosManager
 import dev.araozu.laboratorio2.model.Distrito
@@ -84,11 +89,19 @@ fun TarjetaCandidato(candidato: Candidato) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaCandidatos(titulo: String, lista: List<Candidato>) {
+fun ListaCandidatos(titulo: String, lista: List<Candidato>, onBack: () -> Unit) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
-                title = { Text(titulo) }
+                title = { Text(titulo) },
+                navigationIcon = {
+                    IconButton(onClick = { onBack() }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Localized description"
+                        )
+                    }
+                },
             )
         },
         content = { innerPadding ->
@@ -110,7 +123,8 @@ fun ListaCandidatos(titulo: String, lista: List<Candidato>) {
  */
 @Composable
 fun ListCandidatosDistrito(
-    distritoStr: String
+    distritoStr: String,
+    navController: NavController,
 ) {
     val distrito = Distrito.fromString(distritoStr)
     val listaCandidatos: List<Candidato> =
@@ -124,6 +138,11 @@ fun ListCandidatosDistrito(
     ListaCandidatos(
         titulo = distrito?.toString() ?: "Distritos",
         lista = listaCandidatos,
+        onBack = {
+            navController.navigate(
+                route = Destinations.DistritosScreen.route
+            )
+        },
     )
 }
 
@@ -133,7 +152,8 @@ fun ListCandidatosDistrito(
  */
 @Composable
 fun ListCandidatosPartido(
-    partidoStr: String
+    partidoStr: String,
+    navController: NavController,
 ) {
     val partido = Partido.fromString(partidoStr)
     val listaCandidatos: List<Candidato> =
@@ -144,11 +164,10 @@ fun ListCandidatosPartido(
     ListaCandidatos(
         titulo = partido.toString(),
         lista = listaCandidatos,
+        onBack = {
+            navController.navigate(
+                route = Destinations.PartidosScreen.route
+            )
+        },
     )
-}
-
-@Preview
-@Composable
-fun Prev() {
-    ListCandidatosDistrito(distritoStr = "ALTO_SELVA_ALEGRE")
 }
