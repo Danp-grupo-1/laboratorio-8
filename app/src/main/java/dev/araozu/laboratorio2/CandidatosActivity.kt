@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,12 +33,11 @@ val candidatoDefecto = Candidato(
 /**
  * Muestra una tarjeta de un candidato
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TarjetaCandidato(candidato: Candidato) {
-    Surface(
+    ElevatedCard(
         shape = MaterialTheme.shapes.medium,
-        tonalElevation = 6.dp,
-        shadowElevation = 6.dp,
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(
@@ -84,6 +81,30 @@ fun TarjetaCandidato(candidato: Candidato) {
     }
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ListaCandidatos(titulo: String, lista: List<Candidato>) {
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(titulo) }
+            )
+        },
+        content = { innerPadding ->
+            LazyColumn(contentPadding = innerPadding) {
+                items(lista) {
+                    TarjetaCandidato(it)
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+                item {
+                    Spacer(modifier = Modifier.height(100.dp))
+                }
+            }
+        }
+    )
+}
+
 /**
  * Muestra una lista de candidatos filtrados segun un distrito
  */
@@ -100,27 +121,10 @@ fun ListCandidatosDistrito(
             candidatos.ifEmpty { arrayListOf(candidatoDefecto) }
         }
 
-
-    LazyColumn(contentPadding = PaddingValues(16.dp)) {
-        item {
-            Text(
-                text = distrito?.toString() ?: "Distritos",
-                style = TextStyle(
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Black
-                ),
-                modifier = Modifier.padding(vertical = 10.dp)
-            )
-        }
-        items(listaCandidatos) {
-            TarjetaCandidato(it)
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-        item {
-            Spacer(modifier = Modifier.height(60.dp))
-        }
-    }
+    ListaCandidatos(
+        titulo = distrito?.toString() ?: "Distritos",
+        lista = listaCandidatos,
+    )
 }
 
 
@@ -137,31 +141,14 @@ fun ListCandidatosPartido(
             .getCandidatosPorPartido(partido)
             .ifEmpty { arrayListOf(candidatoDefecto) }
 
-
-    LazyColumn(contentPadding = PaddingValues(16.dp)) {
-        item {
-            Text(
-                text = partido.toString(),
-                style = TextStyle(
-                    color = MaterialTheme.colorScheme.primary,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Black
-                ),
-                modifier = Modifier.padding(vertical = 10.dp)
-            )
-        }
-        items(listaCandidatos) {
-            TarjetaCandidato(it)
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-        item {
-            Spacer(modifier = Modifier.height(60.dp))
-        }
-    }
+    ListaCandidatos(
+        titulo = partido.toString(),
+        lista = listaCandidatos,
+    )
 }
 
 @Preview
 @Composable
 fun Prev() {
-    ListCandidatosDistrito(distritoStr = "Arequipa")
+    ListCandidatosDistrito(distritoStr = "ALTO_SELVA_ALEGRE")
 }
