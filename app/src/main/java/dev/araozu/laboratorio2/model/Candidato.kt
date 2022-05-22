@@ -11,6 +11,5 @@ data class Candidato(
      */
     @DrawableRes val foto: Int,
     val biografia: String,
-    val propuestas: List<String>,
     val distrito: Distrito,
 )

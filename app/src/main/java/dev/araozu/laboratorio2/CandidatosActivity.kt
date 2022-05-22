@@ -1,5 +1,6 @@
 package dev.araozu.laboratorio2
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,6 +12,9 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,7 +35,6 @@ val candidatoDefecto = Candidato(
     partido = Partido.NINGUNO,
     foto = R.drawable.question_mark,
     biografia = "",
-    propuestas = arrayListOf(),
     distrito = Distrito.AREQUIPA,
 )
 
@@ -41,47 +44,52 @@ val candidatoDefecto = Candidato(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TarjetaCandidato(candidato: Candidato) {
+    val tarjetaAbierta = remember { mutableStateOf(false) }
+
     ElevatedCard(
         shape = MaterialTheme.shapes.medium,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+            android.util.Log.d("TARJETA", "click, $tarjetaAbierta")
+            tarjetaAbierta.value = !tarjetaAbierta.value
+        }
     ) {
         Row(
             verticalAlignment = Alignment.Top,
-            modifier = Modifier.padding(10.dp),
+            // modifier = Modifier.padding(horizontal = 10.dp),
         ) {
             Image(
                 painter = painterResource(id = candidato.foto),
                 contentDescription = "Imagen de perfil",
                 modifier = Modifier
-                    .height(50.dp)
-                    .clip(CircleShape),
+                    .height(150.dp)
+                    // .clip(CircleShape),
             )
             Spacer(modifier = Modifier.width(10.dp))
             Column(
                 horizontalAlignment = Alignment.Start,
             ) {
-                Text(text = candidato.nombre, fontSize = 20.sp, fontWeight = FontWeight.Medium)
+                Text(
+                    text = candidato.nombre,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium
+                )
                 Text(
                     text = candidato.partido.toString(),
                     fontWeight = FontWeight.Light,
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(text = candidato.biografia)
-
-                if (candidato.propuestas.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Text(
-                        text = "Propuestas:",
-                        fontWeight = FontWeight.Medium,
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    for (propuesta in candidato.propuestas) {
-                        Text(propuesta)
-                    }
-                }
+                Text(
+                    text = candidato.distrito.toString(),
+                    fontWeight = FontWeight.Light,
+                )
             }
+        }
+
+        AnimatedVisibility(visible = tarjetaAbierta.value) {
+            Text(
+                text = candidato.biografia,
+                modifier = Modifier.padding(10.dp)
+            )
         }
     }
 }
@@ -108,7 +116,7 @@ fun ListaCandidatos(titulo: String, lista: List<Candidato>, onBack: () -> Unit) 
             LazyColumn(contentPadding = innerPadding) {
                 items(lista) {
                     TarjetaCandidato(it)
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
                 }
                 item {
                     Spacer(modifier = Modifier.height(100.dp))

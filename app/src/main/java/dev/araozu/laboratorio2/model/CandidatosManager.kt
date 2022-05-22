@@ -11,7 +11,6 @@ object CandidatosManager {
         Partido.Movimiento_Regional_Reveladora,
         R.drawable.enrique_salas_carreno,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
 
@@ -20,7 +19,6 @@ object CandidatosManager {
         Partido.Frente_Popular_Agricola_del_Peru,
         R.drawable.mariano_otazu_yana,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
 
@@ -29,7 +27,6 @@ object CandidatosManager {
         Partido.Arequipa_transformacion,
         R.drawable.anibal_agustin_salas_flores,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
 
@@ -38,7 +35,6 @@ object CandidatosManager {
         Partido.Arequipa_Tradicion_Futuro,
         R.drawable.david_adolfo_barriga_miranda,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa5 = Candidato(
@@ -46,7 +42,6 @@ object CandidatosManager {
         Partido.Partido_Politico_Nacional_Peru_Libre,
         R.drawable.domingo_suclle_aragon,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa6 = Candidato(
@@ -54,7 +49,6 @@ object CandidatosManager {
         Partido.Yo_Arequipa,
         R.drawable.jose_luis_narro_ortiz,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa7 = Candidato(
@@ -62,7 +56,6 @@ object CandidatosManager {
         Partido.Movimineto_Regional_Arequipa_Avancemos,
         R.drawable.rusbel_gutierrez_canaza,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa8 = Candidato(
@@ -70,7 +63,6 @@ object CandidatosManager {
         Partido.Movimineto_Regional_Arequipa_Avancemos,
         R.drawable.rusbel_gutierrez_canaza,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa9 = Candidato(
@@ -78,7 +70,6 @@ object CandidatosManager {
         Partido.Avanza_Pais_Partido_De_Integracion_Social,
         R.drawable.hector_jesus_del_carpio_cayo,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa10 = Candidato(
@@ -86,7 +77,6 @@ object CandidatosManager {
         Partido.Juntos_Por_El_Desarrollo_De_Arequipa,
         R.drawable.alfredo_willy_benavente_godoy,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa11 = Candidato(
@@ -94,7 +84,6 @@ object CandidatosManager {
         Partido.Accion_Popular,
         R.drawable.daniel_ricardo_delgado_quilla,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa12 = Candidato(
@@ -102,7 +91,6 @@ object CandidatosManager {
         Partido.Partido_Morado,
         R.drawable.raul_lima_coasaca,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa13 = Candidato(
@@ -110,7 +98,6 @@ object CandidatosManager {
         Partido.Fe_En_El_Peru,
         R.drawable.rafael_vicente_villa_moroco,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa14 = Candidato(
@@ -118,7 +105,6 @@ object CandidatosManager {
         Partido.Alianza_Para_El_Progreso,
         R.drawable.jesus_antonio_gamero_marquez,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa15 = Candidato(
@@ -126,7 +112,6 @@ object CandidatosManager {
         Partido.Partido_Frente_De_La_Esperanza_2021,
         R.drawable.juan_molina_patinio,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa16 = Candidato(
@@ -134,7 +119,6 @@ object CandidatosManager {
         Partido.Fuerza_Arequipenya,
         R.drawable.cristhian_guillen_rivera,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa17 = Candidato(
@@ -142,7 +126,6 @@ object CandidatosManager {
         Partido.Movimiento_Regional_Del_Ajo_Justicia_Y_Orden,
         R.drawable.silvestre_frisancho_ancasi,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
     private val candidatoAsa18 = Candidato(
@@ -150,7 +133,6 @@ object CandidatosManager {
         Partido.Juntos_Por_El_Peru,
         R.drawable.pedro_santos_cornejo_mamani,
         "",
-        arrayListOf(),
         Distrito.ALTO_SELVA_ALEGRE
     )
 
@@ -161,8 +143,7 @@ object CandidatosManager {
             partido3,
             R.drawable.question_mark,
             "",
-            arrayListOf(),
-            Distrito.AREQUIPA
+                        Distrito.AREQUIPA
         )
 
         private val candidatoAqp2 = Candidato(
@@ -170,8 +151,7 @@ object CandidatosManager {
             partido4,
             R.drawable.question_mark,
             "",
-            arrayListOf(),
-            Distrito.AREQUIPA
+                        Distrito.AREQUIPA
         )*/
     // Candidatos Cayma
     private val candidatoCay1 = Candidato(
@@ -179,7 +159,6 @@ object CandidatosManager {
         Partido.Arequipa_transformacion,
         R.drawable.miriam_janet_pacheco_de_carpio,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay2 = Candidato(
@@ -187,7 +166,6 @@ object CandidatosManager {
         Partido.Arequipa_Tradicion_Futuro,
         R.drawable.oswaldo_alvaro_muniiz_huillca,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay3 = Candidato(
@@ -195,7 +173,6 @@ object CandidatosManager {
         Partido.Fuerza_Arequipenya,
         R.drawable.moises_jesus_chuctaya_huarca,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay4 = Candidato(
@@ -203,7 +180,6 @@ object CandidatosManager {
         Partido.Partido_Democratico_Somos_Peru,
         R.drawable.juan_carlos_callacondo_velarde,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay5 = Candidato(
@@ -211,7 +187,6 @@ object CandidatosManager {
         Partido.Partido_Politico_Nacional_Peru_Libre,
         R.drawable.reynaldo_paredes_casapia,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay6 = Candidato(
@@ -219,7 +194,6 @@ object CandidatosManager {
         Partido.Arequipa_Unidos_Por_El_Gran_Cambio,
         R.drawable.jose_renato_carreon_echegaray,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay7 = Candidato(
@@ -227,7 +201,6 @@ object CandidatosManager {
         Partido.Movimineto_Regional_Arequipa_Avancemos,
         R.drawable.juan_carlos_linares_cama,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay8 = Candidato(
@@ -235,7 +208,6 @@ object CandidatosManager {
         Partido.Avanza_Pais_Partido_De_Integracion_Social,
         R.drawable.gino_hector_bravo_ardiles,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay9 = Candidato(
@@ -243,7 +215,6 @@ object CandidatosManager {
         Partido.Yo_Arequipa,
         R.drawable.dolores_virginia_rodriguez_acosta,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay10 = Candidato(
@@ -251,7 +222,6 @@ object CandidatosManager {
         Partido.Juntos_Por_El_Desarrollo_De_Arequipa,
         R.drawable.rodolfo_aquepucho_hacha,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay11 = Candidato(
@@ -259,7 +229,6 @@ object CandidatosManager {
         Partido.Movimiento_Regional_Reveladora,
         R.drawable.rodolfo_aquepucho_hacha,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay12 = Candidato(
@@ -267,7 +236,6 @@ object CandidatosManager {
         Partido.Podemos_Peru,
         R.drawable.wenceslao_salomon_tarifa_sucari,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay13 = Candidato(
@@ -275,7 +243,6 @@ object CandidatosManager {
         Partido.Fuerza_Popular,
         R.drawable.hector_arturo_pita_catalan,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay14 = Candidato(
@@ -283,7 +250,6 @@ object CandidatosManager {
         Partido.Partido_Frente_De_La_Esperanza_2021,
         R.drawable.fortunato_mniuico_muniuico,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay15 = Candidato(
@@ -291,7 +257,6 @@ object CandidatosManager {
         Partido.Alianza_Para_El_Progreso,
         R.drawable.pavel_miguel_ibarra_quispe,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
     private val candidatoCay16 = Candidato(
@@ -299,7 +264,6 @@ object CandidatosManager {
         Partido.Juntos_Por_El_Peru,
         R.drawable.victor_simon_garcia_alvarez,
         "",
-        arrayListOf(),
         Distrito.CAYMA
     )
 
@@ -310,7 +274,6 @@ object CandidatosManager {
         Partido.Arequipa_transformacion,
         R.drawable.hugo_efrain_aguilar_gonzales,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor2 = Candidato(
@@ -318,7 +281,6 @@ object CandidatosManager {
         Partido.Arequipa_transformacion,
         R.drawable.hugo_efrain_aguilar_gonzales,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor3 = Candidato(
@@ -326,7 +288,6 @@ object CandidatosManager {
         Partido.Movimiento_Regional_Reveladora,
         R.drawable.santos_ivan_alfaro_rojas,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor4 = Candidato(
@@ -334,7 +295,6 @@ object CandidatosManager {
         Partido.Avanza_Pais_Partido_De_Integracion_Social,
         R.drawable.miguel_eliseo_apaza_penia,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor5 = Candidato(
@@ -342,7 +302,6 @@ object CandidatosManager {
         Partido.Arequipa_Tradicion_Futuro,
         R.drawable.manuel_enrique_vera_paredes,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor6 = Candidato(
@@ -350,7 +309,6 @@ object CandidatosManager {
         Partido.Partido_Democratico_Somos_Peru,
         R.drawable.pedro_florencio_huamani_ancasi,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor7 = Candidato(
@@ -358,7 +316,6 @@ object CandidatosManager {
         Partido.Fuerza_Arequipenya,
         R.drawable.walter_benjamin_diaz_perez,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor8 = Candidato(
@@ -366,7 +323,6 @@ object CandidatosManager {
         Partido.Arequipa_Unidos_Por_El_Gran_Cambio,
         R.drawable.luis_elias_apaza_huaman,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor9 = Candidato(
@@ -374,7 +330,6 @@ object CandidatosManager {
         Partido.Partido_Politico_Nacional_Peru_Libre,
         R.drawable.pascual_puma_ayma,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor10 = Candidato(
@@ -382,7 +337,6 @@ object CandidatosManager {
         Partido.Juntos_Por_El_Desarrollo_De_Arequipa,
         R.drawable.hermes_nicolas_oscco_polar,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor11 = Candidato(
@@ -390,7 +344,6 @@ object CandidatosManager {
         Partido.Yo_Arequipa,
         R.drawable.jesus_heraclides_torres_gonzales,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor12 = Candidato(
@@ -398,7 +351,6 @@ object CandidatosManager {
         Partido.Fe_En_El_Peru,
         R.drawable.wilfredo_quispe_gutierrez,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
     private val candidatoCeColor13 = Candidato(
@@ -406,7 +358,6 @@ object CandidatosManager {
         Partido.Partido_Frente_De_La_Esperanza_2021,
         R.drawable.nila_yesmit_apaza_mamani,
         "",
-        arrayListOf(),
         Distrito.CERRO_COLORADO
     )
 
