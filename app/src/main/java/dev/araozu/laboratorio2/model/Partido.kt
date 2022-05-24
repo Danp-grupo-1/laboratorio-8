@@ -24,6 +24,8 @@ enum class Partido {
     Partido_Democratico_Somos_Peru,
     Podemos_Peru,
     Fuerza_Popular,
+    Arequipa_Renace,
+    Renovacion_Popular,
     NINGUNO;
 
     companion object {
@@ -59,6 +61,8 @@ enum class Partido {
             Arequipa_Unidos_Por_El_Gran_Cambio -> "Arequipa-Unidos por el Gran Cambio"
             Podemos_Peru -> "Podemos Peru"
             Fuerza_Popular -> "Fuerza Popular"
+            Arequipa_Renace->"Arequipa Renace"
+            Renovacion_Popular->"Renovacion Popular"
             NINGUNO -> ""
         }
     }
