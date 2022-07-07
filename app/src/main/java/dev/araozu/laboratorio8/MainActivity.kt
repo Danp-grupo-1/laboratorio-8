@@ -27,6 +27,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import dev.araozu.laboratorio8.model.Distrito
+import dev.araozu.laboratorio8.model.Partido
 import dev.araozu.laboratorio8.ui.theme.Lab8Theme
 
 const val CHANNEL_ID = "NOT"
@@ -56,12 +58,27 @@ private fun notification(ctx: Context) {
     }
     val pendingIntent = PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
+    /* First notification action: Distrito */
+    val distritoIntent = Intent(ctx, MainActivity::class.java).apply {
+         // action = ACTION_SNOOZ
+        putExtra("Distrito", Distrito.CHIGUATA.toString())
+    }
+    val distritoPendingIntent = PendingIntent.getBroadcast(ctx, 0, distritoIntent, 0)
+
+    /* Second notification action: Partido */
+    val partidoIntent = Intent(ctx, MainActivity::class.java).apply {
+        putExtra("Partido", Partido.partidos[0].nombre)
+    }
+    val partidoPendingIntent = PendingIntent.getBroadcast(ctx, 0, partidoIntent, 0)
+
     val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
         .setSmallIcon(R.drawable.loading)
         .setContentTitle("Sample notification")
         .setContentText("Sample notification content text")
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setContentIntent(pendingIntent)
+        .addAction(R.drawable.loading, "Distrito", distritoPendingIntent)
+        .addAction(R.drawable.loading, "Partido", partidoPendingIntent)
         .setAutoCancel(true)
 
     with(NotificationManagerCompat.from(ctx)) {
