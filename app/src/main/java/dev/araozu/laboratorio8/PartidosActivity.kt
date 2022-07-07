@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dev.araozu.laboratorio8.model.Partido
 
-var listaPartidos = Partido.values().let {
-    it.sortBy { p -> p.name }
+var listaPartidos = Partido.partidos.let {
+    it.sortBy { p -> p.nombre }
     it
 }
 
@@ -29,15 +29,15 @@ fun BotonPartido(partido: Partido, navController: NavController) {
         FilledTonalButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-            navController.navigate(
-                route = Destinations.CandidatosPartidoScreen.createRoute(
-                    partido.name
+                navController.navigate(
+                    route = Destinations.CandidatosPartidoScreen.createRoute(
+                        partido.nombre
+                    )
                 )
-            )
-        }
+            }
         ) {
             Text(
-                text = partido.toString(),
+                text = partido.nombre,
                 style = TextStyle(
                     fontSize = 20.sp, fontWeight = FontWeight.Light, fontStyle = FontStyle.Italic
                 ),
@@ -68,10 +68,8 @@ fun ListPartidos(navController: NavController) {
             )
         }
         items(listaPartidos) {
-            if (it != Partido.NINGUNO) {
-                BotonPartido(it, navController)
-                Spacer(modifier = Modifier.height(10.dp))
-            }
+            BotonPartido(it, navController)
+            Spacer(modifier = Modifier.height(10.dp))
         }
         item {
             Spacer(modifier = Modifier.height(60.dp))

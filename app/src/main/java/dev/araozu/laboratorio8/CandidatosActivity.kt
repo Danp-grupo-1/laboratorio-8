@@ -1,17 +1,15 @@
 package dev.araozu.laboratorio8
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,19 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import dev.araozu.laboratorio2.R
+import coil.compose.AsyncImage
 import dev.araozu.laboratorio8.model.Candidato
-import dev.araozu.laboratorio8.model.CandidatosManager
 import dev.araozu.laboratorio8.model.Distrito
-import dev.araozu.laboratorio8.model.Partido
 
-val candidatoDefecto = Candidato(
-    nombre = "No se ha encontrado ningún candidato.",
-    partido = Partido.NINGUNO,
-    foto = R.drawable.question_mark,
-    biografia = "",
-    distrito = Distrito.AREQUIPA,
-)
 
 /**
  * Muestra una tarjeta de un candidato
@@ -53,8 +42,10 @@ fun TarjetaCandidato(candidato: Candidato) {
             verticalAlignment = Alignment.Top,
             // modifier = Modifier.padding(horizontal = 10.dp),
         ) {
-            Image(
-                painter = painterResource(id = candidato.foto),
+            AsyncImage(
+                // painter = rememberAsyncImagePainter(model = candidato.foto),
+                model = candidato.foto,
+                placeholder = painterResource(id = R.drawable.loading),
                 contentDescription = "Imagen de perfil",
                 modifier = Modifier
                     .height(150.dp)
@@ -70,7 +61,7 @@ fun TarjetaCandidato(candidato: Candidato) {
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = candidato.partido.toString(),
+                    text = candidato.partido.nombre,
                     fontWeight = FontWeight.Light,
                 )
                 Text(
@@ -132,10 +123,10 @@ fun ListCandidatosDistrito(
     val distrito = Distrito.fromString(distritoStr)
     val listaCandidatos: List<Candidato> =
         if (distrito == null) {
-            arrayListOf(candidatoDefecto)
+            arrayListOf()
         } else {
-            val candidatos = CandidatosManager.getCandidatosPorDistrito(distrito)
-            candidatos.ifEmpty { arrayListOf(candidatoDefecto) }
+            val candidatos = Candidato.candidatos.filter { it.distrito == distrito }
+            candidatos.ifEmpty { arrayListOf() }
         }
 
     ListaCandidatos(
@@ -158,14 +149,10 @@ fun ListCandidatosPartido(
     partidoStr: String,
     navController: NavController,
 ) {
-    val partido = Partido.fromString(partidoStr)
-    val listaCandidatos: List<Candidato> =
-        CandidatosManager
-            .getCandidatosPorPartido(partido)
-            .ifEmpty { arrayListOf(candidatoDefecto) }
+    val listaCandidatos: List<Candidato> = Candidato.candidatos.filter { it.partido.nombre == partidoStr }
 
     ListaCandidatos(
-        titulo = partido.toString(),
+        titulo = partidoStr,
         lista = listaCandidatos,
         onBack = {
             navController.navigate(
