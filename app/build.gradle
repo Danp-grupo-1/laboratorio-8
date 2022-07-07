@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    // id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "dev.araozu.laboratorio2"
-        minSdk 21
+        applicationId "dev.araozu.laboratorio8"
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -64,4 +65,8 @@ dependencies {
     implementation "androidx.compose.material3:material3-window-size-class:1.0.0-alpha12"
     // Images from internet
     implementation("io.coil-kt:coil-compose:2.1.0")
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+    // Notifications
+    implementation("androidx.core:core-ktx:1.7.0")
 }
