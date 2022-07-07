@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2
+package dev.araozu.laboratorio8
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import dev.araozu.laboratorio2.ui.theme.Proyecto1Theme
+import dev.araozu.laboratorio8.ui.theme.Proyecto1Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

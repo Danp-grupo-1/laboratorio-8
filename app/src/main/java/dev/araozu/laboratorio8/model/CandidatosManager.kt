@@ -1,6 +1,6 @@
-package dev.araozu.laboratorio2.model
+package dev.araozu.laboratorio8.model
 
-import dev.araozu.laboratorio2.R
+import dev.araozu.laboratorio8.R
 
 object CandidatosManager {
     private val candidatos: ArrayList<Candidato> = ArrayList()

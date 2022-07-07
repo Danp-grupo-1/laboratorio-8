@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2
+package dev.araozu.laboratorio8
 
 import org.junit.Test
 

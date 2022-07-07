@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2.ui.theme
+package dev.araozu.laboratorio8.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import dev.araozu.laboratorio2.R
+import dev.araozu.laboratorio8.R
 
 val fonts = FontFamily(
     Font(R.font.inter_regular, weight = FontWeight.Normal),

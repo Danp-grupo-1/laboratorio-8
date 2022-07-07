@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2.ui.theme
+package dev.araozu.laboratorio8.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

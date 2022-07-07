@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2.model
+package dev.araozu.laboratorio8.model
 
 import androidx.annotation.DrawableRes
 

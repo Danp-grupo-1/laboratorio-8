@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2
+package dev.araozu.laboratorio8
 
 sealed class Destinations(val route: String) {
     object DistritosScreen : Destinations("distritos_screen")

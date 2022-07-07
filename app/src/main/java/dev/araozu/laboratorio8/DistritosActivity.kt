@@ -1,4 +1,4 @@
-package dev.araozu.laboratorio2
+package dev.araozu.laboratorio8
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import dev.araozu.laboratorio2.model.Distrito
+import dev.araozu.laboratorio8.model.Distrito
 
 var listaDistritos = Distrito.values().let {
     it.sortBy { p -> p.name }
