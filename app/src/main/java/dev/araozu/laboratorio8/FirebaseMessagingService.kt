@@ -6,26 +6,30 @@ import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
 import coil.imageLoader
 import coil.request.ImageRequest
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import dev.araozu.laboratorio8.model.Distrito
-import dev.araozu.laboratorio8.model.Partido
 import kotlinx.coroutines.runBlocking
 
 class FirebaseMessagingService : FirebaseMessagingService() {
-    private suspend fun notification(title: String, content: String, imgUrl: String) {
+    private suspend fun createNotification(
+        title: String,
+        content: String,
+        imgUrl: String,
+        partido: String,
+        distrito: String,
+    ) {
         val ctx: Context = this
 
         val imgRequest = ImageRequest.Builder(this)
             .data(imgUrl)
             .build()
-        val drawable = this.imageLoader.execute(imgRequest).drawable !!
+        val drawable = this.imageLoader.execute(imgRequest).drawable!!
 
         // Intent to open the app
         val intent = Intent(ctx, MainActivity::class.java).apply {
@@ -33,18 +37,20 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         }
         val pendingIntent = PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
+
         /* First notification action: Distrito */
         val distritoIntent = Intent(ctx, MainActivity::class.java).apply {
-            // action = ACTION_SNOOZ
-            putExtra("Distrito", Distrito.CHIGUATA.toString())
+            putExtra("Distrito", distrito)
         }
-        val distritoPendingIntent = PendingIntent.getBroadcast(ctx, 0, distritoIntent, 0)
+        val distritoPendingIntent = PendingIntent.getActivity(ctx, 0, distritoIntent, 0)
+
 
         /* Second notification action: Partido */
         val partidoIntent = Intent(ctx, MainActivity::class.java).apply {
-            putExtra("Partido", Partido.partidos[0].nombre)
+            putExtra("Partido", partido)
         }
-        val partidoPendingIntent = PendingIntent.getBroadcast(ctx, 0, partidoIntent, 0)
+        val partidoPendingIntent = PendingIntent.getActivity(ctx, 0, partidoIntent, 0)
+
 
         val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
             .setSmallIcon(R.drawable.loading)
@@ -68,14 +74,40 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val looper = handlerThread.looper
         val handler = Handler(looper)
         handler.post {
-            val m = message.notification
-            Log.d("FIRE", "Title: ${m?.title} - Body: ${m?.body} - URL: ${m?.imageUrl}")
+            val notification = message.notification
+            val data = message.data
+
+            val titulo = notification?.title
+            val cuerpo = notification?.body
+            val urlImg = notification?.imageUrl?.toString()
+            val partido = data["Partido"]
+            val distrito = data["Distrito"]
+
+            Log.d(
+                "FIRE", """
+                Title: $titulo - 
+                Body: $cuerpo - 
+                URL: $urlImg -
+                Partido: $partido -
+                Distrito: $distrito
+                """.trimIndent()
+            )
+
+            if (
+                titulo == null || cuerpo == null || urlImg == null
+                || partido == null || distrito == null
+            ) {
+                Log.d("FIRE", "There is a null value")
+                return@post
+            }
 
             runBlocking {
-                notification(
-                    title   = m?.title ?: "Titulo",
-                    content = m?.body ?: "Contenido",
-                    imgUrl  = m?.imageUrl.toString(),
+                createNotification(
+                    title = titulo,
+                    content = cuerpo,
+                    imgUrl = urlImg,
+                    distrito = distrito,
+                    partido = partido,
                 )
             }
         }
@@ -83,5 +115,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         Log.d("FIRE", "Token: $token")
+        FirebaseMessaging.getInstance().subscribeToTopic("Lab8")
     }
 }

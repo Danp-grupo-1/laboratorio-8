@@ -55,70 +55,15 @@ private fun createNotificationChannel(ctx: Context) {
     }
 }
 
-
-private fun notification(ctx: Context) {
-    // Intent to open the app
-    val intent = Intent(ctx, MainActivity::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-    }
-    val pendingIntent = PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
-    /* First notification action: Distrito */
-    val distritoIntent = Intent(ctx, MainActivity::class.java).apply {
-        // action = ACTION_SNOOZ
-        putExtra("Distrito", Distrito.CHIGUATA.toString())
-    }
-    val distritoPendingIntent = PendingIntent.getBroadcast(ctx, 0, distritoIntent, 0)
-
-    /* Second notification action: Partido */
-    val partidoIntent = Intent(ctx, MainActivity::class.java).apply {
-        putExtra("Partido", Partido.partidos[0].nombre)
-    }
-    val partidoPendingIntent = PendingIntent.getBroadcast(ctx, 0, partidoIntent, 0)
-
-    val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
-        .setSmallIcon(R.drawable.loading)
-        .setContentTitle("Sample notification")
-        .setContentText("Sample notification content text")
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        .setContentIntent(pendingIntent)
-        .addAction(R.drawable.loading, "Distrito", distritoPendingIntent)
-        .addAction(R.drawable.loading, "Partido", partidoPendingIntent)
-        .setAutoCancel(true)
-
-    with(NotificationManagerCompat.from(ctx)) {
-        notify(0, builder.build())
-    }
-}
-
-private fun foregroundNotification(ctx: Context) {
-    val serviceIntent = Intent(ctx, LabService::class.java)
-    ctx.startService(serviceIntent)
-}
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         createNotificationChannel(ctx = this@MainActivity)
-        // foregroundNotification(this)
-
-        /*
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("MAIN", "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            // Get new FCM registration token
-            val token = task.result
-
-            // Log and toast
-            val msg = token.toString()
-            Log.d("MAIN", msg)
-            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-        })
-         */
+        Log.d("MAIN", """
+            Distrito: ${intent.getStringExtra("Distrito")} \\ 
+            Partido: ${intent.getStringExtra("Partido")} \\
+        """.trimIndent())
 
         setContent {
             Lab8Theme {
