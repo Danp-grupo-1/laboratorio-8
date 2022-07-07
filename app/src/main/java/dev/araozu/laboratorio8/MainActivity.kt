@@ -1,6 +1,7 @@
 package dev.araozu.laboratorio8
 
 import android.annotation.SuppressLint
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -64,7 +65,7 @@ private fun notification(ctx: Context) {
 
     /* First notification action: Distrito */
     val distritoIntent = Intent(ctx, MainActivity::class.java).apply {
-         // action = ACTION_SNOOZ
+        // action = ACTION_SNOOZ
         putExtra("Distrito", Distrito.CHIGUATA.toString())
     }
     val distritoPendingIntent = PendingIntent.getBroadcast(ctx, 0, distritoIntent, 0)
@@ -90,11 +91,17 @@ private fun notification(ctx: Context) {
     }
 }
 
+private fun foregroundNotification(ctx: Context) {
+    val serviceIntent = Intent(ctx, LabService::class.java)
+    ctx.startService(serviceIntent)
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         createNotificationChannel(ctx = this@MainActivity)
+        // foregroundNotification(this)
 
         /*
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
