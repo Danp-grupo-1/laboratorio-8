@@ -28,15 +28,16 @@
                 android:src="@drawable/ic_launcher_foreground" />
 
             <TextView
-                android:id="@+id/textView"
-                style="@style/TextAppearance.Compat.Notification.Title"
+                android:id="@+id/notification_title"
+                android:textColor="#d1e9d6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Información actualizada"
                 android:textSize="16sp" />
 
             <TextView
-                style="@style/TextAppearance.Compat.Notification"
+                android:id="@+id/notification_body"
+                android:textColor="#d1e9d6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Anibal Salas actualizó su información" />
@@ -44,7 +45,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/notification_image"
             android:layout_width="31dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -62,15 +63,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/notification_action1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:background="#d1e9d6"
             android:layout_weight="1"
             android:text="Distrito" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/notification_action2"
+            android:background="#d1e9d6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bgColorExpanded">#213528</color>
+    <color name="bgLight">#d1e9d6</color>
 
 </resources>

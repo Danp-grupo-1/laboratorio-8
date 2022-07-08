@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -30,6 +31,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             .data(imgUrl)
             .build()
         val drawable = this.imageLoader.execute(imgRequest).drawable!!
+        val image = drawable.toBitmap()
 
         // Intent to open the app
         val intent = Intent(ctx, MainActivity::class.java).apply {
@@ -51,10 +53,24 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         }
         val partidoPendingIntent = PendingIntent.getActivity(ctx, 0, partidoIntent, 0)
 
+        /* Custom layout */
+        val smallLayout = RemoteViews(ctx.packageName, R.layout.notification_small)
+        smallLayout.setTextViewText(R.id.notification_title, title)
+        smallLayout.setTextViewText(R.id.notification_body, content)
+        smallLayout.setImageViewBitmap(R.id.notification_image, image)
+
+        val expandedLayout = RemoteViews(ctx.packageName, R.layout.notification_expanded)
+        expandedLayout.setTextViewText(R.id.notification_title, title)
+        expandedLayout.setTextViewText(R.id.notification_body, content)
+        expandedLayout.setImageViewBitmap(R.id.notification_image, image)
+        expandedLayout.setOnClickPendingIntent(R.id.notification_action1, distritoPendingIntent)
+        expandedLayout.setOnClickPendingIntent(R.id.notification_action2, partidoPendingIntent)
 
         val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
+            .setCustomContentView(smallLayout)
+            .setCustomBigContentView(expandedLayout)
             .setSmallIcon(R.drawable.loading)
-            .setLargeIcon(drawable.toBitmap())
+            .setLargeIcon(image)
             .setContentTitle(title)
             .setContentText(content)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -112,7 +128,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             }
         }
     }
-
+// c0M4wkXJRuuhwRW0YcHRIv:APA91bHJqgz5oWLclmwLf0fDyi_SqK_V_vSvMUcZT7S5L8VbnEMQCdLykbCcz-8h2z3idxaow_m4dqzmygX2DlmOIgVRjwLIIL7hhFJVRMU3I84gTFA8s8HFcl3qiDdGlc5Rdco8rzx6
     override fun onNewToken(token: String) {
         Log.d("FIRE", "Token: $token")
         FirebaseMessaging.getInstance().subscribeToTopic("Lab8")
