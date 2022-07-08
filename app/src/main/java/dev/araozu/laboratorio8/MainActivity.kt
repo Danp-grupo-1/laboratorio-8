@@ -90,6 +90,8 @@ private fun notification(ctx: Context) {
         .setContentIntent(pendingIntent)
         .setCustomContentView(notificationLayout)
         .setCustomBigContentView(notificationLayoutExpanded)
+        .setContentTitle("Informacion actualizada")
+        .setContentText("Anibal Salas actualizó su información")
         // .addAction(R.id.btnDistrito, "Distrito", distritoPendingIntent)
         // .addAction(R.id.btnPartido, "Partido", partidoPendingIntent)
         .setAutoCancel(true)
@@ -97,11 +99,6 @@ private fun notification(ctx: Context) {
     with(NotificationManagerCompat.from(ctx)) {
         notify(0, builder.build())
     }
-}
-
-private fun foregroundNotification(ctx: Context) {
-    val serviceIntent = Intent(ctx, LabService::class.java)
-    ctx.startService(serviceIntent)
 }
 
 class MainActivity : ComponentActivity() {

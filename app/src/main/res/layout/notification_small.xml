@@ -28,14 +28,14 @@
             style="@style/TextAppearance.Compat.Notification.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Título de mi notificación"
+            android:text="Información actualizada"
             android:textSize="16sp" />
 
         <TextView
             style="@style/TextAppearance.Compat.Notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contenido de la notificación" />
+            android:text="Anibal Salas actualizó su información" />
 
     </LinearLayout>
 
