@@ -7,9 +7,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,6 +37,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import dev.araozu.laboratorio8.model.Distrito
 import dev.araozu.laboratorio8.model.Partido
 import dev.araozu.laboratorio8.ui.theme.Lab8Theme
+import kotlin.math.log
 
 const val CHANNEL_ID = "NOT"
 
@@ -55,23 +58,87 @@ private fun createNotificationChannel(ctx: Context) {
     }
 }
 
+
+private fun notification(ctx: Context) {
+    // Intent to open the app
+    val intent = Intent(ctx, MainActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    val pendingIntent = PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+    /* First notification action: Distrito */
+    val distritoIntent = Intent(ctx, MainActivity::class.java).apply {
+        // action = ACTION_SNOOZ
+        putExtra("Distrito", Distrito.CHIGUATA.toString())
+    }
+    val distritoPendingIntent = PendingIntent.getBroadcast(ctx, 0, distritoIntent, 0)
+
+    /* Second notification action: Partido */
+    val partidoIntent = Intent(ctx, MainActivity::class.java).apply {
+        putExtra("Partido", Partido.partidos[0].nombre)
+    }
+    val partidoPendingIntent = PendingIntent.getBroadcast(ctx, 0, partidoIntent, 0)
+
+
+    val notificationLayout= RemoteViews(ctx.packageName,R.layout.notification_small)
+    val notificationLayoutExpanded= RemoteViews(ctx.packageName,R.layout.notification_expanded)
+
+    val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
+        .setSmallIcon(R.drawable.loading)
+        .setLargeIcon(BitmapFactory.decodeResource(ctx.resources,R.drawable.jesus_antonio_gamero_marquez))
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setContentIntent(pendingIntent)
+        .setCustomContentView(notificationLayout)
+        .setCustomBigContentView(notificationLayoutExpanded)
+        // .addAction(R.id.btnDistrito, "Distrito", distritoPendingIntent)
+        // .addAction(R.id.btnPartido, "Partido", partidoPendingIntent)
+        .setAutoCancel(true)
+
+    with(NotificationManagerCompat.from(ctx)) {
+        notify(0, builder.build())
+    }
+}
+
+private fun foregroundNotification(ctx: Context) {
+    val serviceIntent = Intent(ctx, LabService::class.java)
+    ctx.startService(serviceIntent)
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         createNotificationChannel(ctx = this@MainActivity)
-        Log.d("MAIN", """
-            Distrito: ${intent.getStringExtra("Distrito")} \\ 
-            Partido: ${intent.getStringExtra("Partido")} \\
-        """.trimIndent())
+        // foregroundNotification(this)
 
+        /*
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("MAIN", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = token.toString()
+            Log.d("MAIN", msg)
+            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
+         */
+        var rutax = "partidos_screen"
         setContent {
             Lab8Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationHost()
+                    Button(onClick = { notification(this)}) {
+                        Text("Notificacion")
+
+                    }
+                  //  NavigationHost(rutax)
                 }
             }
         }
@@ -84,43 +151,38 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationHost() {
+fun NavigationHost(rutaInicial: String) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigation(navController) }
     ) {
         NavHost(
             navController = navController,
-            startDestination = Destinations.DistritosScreen.route
+            startDestination = rutaInicial
         ) {
             composable(
-                route = Destinations.DistritosScreen.route
+                route = rutaInicial
             ) {
-                ListDistritos(navController)
-            }
-            composable(
-                route = Destinations.CandidatosDistritoScreen.route,
-                arguments = listOf(navArgument("distrito") { defaultValue = "Arequipa" })
-            ) {
-                val distrito = it.arguments?.getString("distrito")
-                requireNotNull(distrito)
-                ListCandidatosDistrito(distrito, navController)
-            }
-            composable(
-                route = Destinations.PartidosScreen.route
-            ) {
-                ListPartidos(navController)
-            }
-            //
-            composable(
-                route = Destinations.CandidatosPartidoScreen.route,
-                arguments = listOf(navArgument("partido") {
-                    defaultValue = "Arequipa_Tradicion_Futuro"
-                })
-            ) {
-                val partido = it.arguments?.getString("partido")
-                requireNotNull(partido)
-                ListCandidatosPartido(partido, navController)
+                if(!rutaInicial.contains("/")){
+                    when(rutaInicial){
+                        "distritos_screen"-> ListDistritos(navController)
+                        "partidos_screen"-> ListPartidos(navController)
+                        else -> ListDistritos(navController)
+                    }
+                    //Log.e("asd",rutaInicial)
+                }else {
+                    var slash = rutaInicial.indexOf("/")
+                    var igual = rutaInicial.indexOf("=")
+                    var uno = rutaInicial.substring(0, slash)
+                    var dos = rutaInicial.substring(igual+1, rutaInicial.length)
+                    //Log.e("asd",uno)
+                    //Log.e("asd",dos)
+                    when(uno){
+                        "distritos_screen"-> ListCandidatosDistrito(dos, navController)
+                        "partidos_screen"-> ListCandidatosPartido(dos, navController)
+                        else -> ListDistritos(navController)
+                    }
+                }
             }
         }
     }
@@ -174,4 +236,3 @@ fun BottomNavigation(navController: NavController) {
         }
     }
 }
-
