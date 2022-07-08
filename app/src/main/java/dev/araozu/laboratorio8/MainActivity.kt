@@ -7,9 +7,11 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -77,14 +79,19 @@ private fun notification(ctx: Context) {
     }
     val partidoPendingIntent = PendingIntent.getBroadcast(ctx, 0, partidoIntent, 0)
 
+
+    val notificationLayout= RemoteViews(ctx.packageName,R.layout.notification_small)
+    val notificationLayoutExpanded= RemoteViews(ctx.packageName,R.layout.notification_expanded)
+
     val builder = NotificationCompat.Builder(ctx, CHANNEL_ID)
         .setSmallIcon(R.drawable.loading)
-        .setContentTitle("Sample notification")
-        .setContentText("Sample notification content text")
+        .setLargeIcon(BitmapFactory.decodeResource(ctx.resources,R.drawable.jesus_antonio_gamero_marquez))
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setContentIntent(pendingIntent)
-        .addAction(R.drawable.loading, "Distrito", distritoPendingIntent)
-        .addAction(R.drawable.loading, "Partido", partidoPendingIntent)
+        .setCustomContentView(notificationLayout)
+        .setCustomBigContentView(notificationLayoutExpanded)
+        // .addAction(R.id.btnDistrito, "Distrito", distritoPendingIntent)
+        // .addAction(R.id.btnPartido, "Partido", partidoPendingIntent)
         .setAutoCancel(true)
 
     with(NotificationManagerCompat.from(ctx)) {
@@ -127,7 +134,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationHost(rutax)
+                    Button(onClick = { notification(this)}) {
+                        Text("Notificacion")
+
+                    }
+                  //  NavigationHost(rutax)
                 }
             }
         }
