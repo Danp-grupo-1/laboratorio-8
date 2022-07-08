@@ -37,21 +37,40 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val intent = Intent(ctx, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent = PendingIntent.getActivity(ctx, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(
+            ctx,
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
 
 
         /* First notification action: Distrito */
         val distritoIntent = Intent(ctx, MainActivity::class.java).apply {
             putExtra("Distrito", distrito)
+            putExtra("Partido", partido)
+            putExtra("Accion", "Distrito")
         }
-        val distritoPendingIntent = PendingIntent.getActivity(ctx, 0, distritoIntent, 0)
+        val distritoPendingIntent = PendingIntent.getActivity(
+            ctx,
+            0,
+            distritoIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
 
         /* Second notification action: Partido */
         val partidoIntent = Intent(ctx, MainActivity::class.java).apply {
+            putExtra("Distrito", distrito)
             putExtra("Partido", partido)
+            putExtra("Accion", "Partido")
         }
-        val partidoPendingIntent = PendingIntent.getActivity(ctx, 0, partidoIntent, 0)
+        val partidoPendingIntent = PendingIntent.getActivity(
+            ctx,
+            0,
+            partidoIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         /* Custom layout */
         val smallLayout = RemoteViews(ctx.packageName, R.layout.notification_small)

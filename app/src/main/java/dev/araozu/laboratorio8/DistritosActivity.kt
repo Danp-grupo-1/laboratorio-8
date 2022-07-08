@@ -1,11 +1,12 @@
 package dev.araozu.laboratorio8
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,11 +48,20 @@ fun BotonDistrito(distrito: Distrito, navController: NavController) {
     }
 }
 
+private var toUpdate = true
 /**
  * Renderiza una lista de botones con todos los distritos de Arequipa
  */
 @Composable
-fun ListDistritos(navController: NavController) {
+fun ListDistritos(navController: NavController, initialRoute: String? = null) {
+    if (initialRoute != null) {
+        if (initialRoute != "distritos_screen" && toUpdate) {
+            Log.d("DISTRITO", "Navegando...")
+            navController.navigate(initialRoute)
+            toUpdate = false
+        }
+    }
+
     LazyColumn(
         contentPadding = PaddingValues(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
