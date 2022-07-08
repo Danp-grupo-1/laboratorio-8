@@ -35,6 +35,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import dev.araozu.laboratorio8.model.Distrito
 import dev.araozu.laboratorio8.model.Partido
 import dev.araozu.laboratorio8.ui.theme.Lab8Theme
+import kotlin.math.log
 
 const val CHANNEL_ID = "NOT"
 
@@ -119,14 +120,14 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
          */
-
+        var rutax = "partidos_screen"
         setContent {
             Lab8Theme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationHost()
+                    NavigationHost(rutax)
                 }
             }
         }
@@ -139,43 +140,38 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationHost() {
+fun NavigationHost(rutaInicial: String) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomNavigation(navController) }
     ) {
         NavHost(
             navController = navController,
-            startDestination = Destinations.DistritosScreen.route
+            startDestination = rutaInicial
         ) {
             composable(
-                route = Destinations.DistritosScreen.route
+                route = rutaInicial
             ) {
-                ListDistritos(navController)
-            }
-            composable(
-                route = Destinations.CandidatosDistritoScreen.route,
-                arguments = listOf(navArgument("distrito") { defaultValue = "Arequipa" })
-            ) {
-                val distrito = it.arguments?.getString("distrito")
-                requireNotNull(distrito)
-                ListCandidatosDistrito(distrito, navController)
-            }
-            composable(
-                route = Destinations.PartidosScreen.route
-            ) {
-                ListPartidos(navController)
-            }
-            //
-            composable(
-                route = Destinations.CandidatosPartidoScreen.route,
-                arguments = listOf(navArgument("partido") {
-                    defaultValue = "Arequipa_Tradicion_Futuro"
-                })
-            ) {
-                val partido = it.arguments?.getString("partido")
-                requireNotNull(partido)
-                ListCandidatosPartido(partido, navController)
+                if(!rutaInicial.contains("/")){
+                    when(rutaInicial){
+                        "distritos_screen"-> ListDistritos(navController)
+                        "partidos_screen"-> ListPartidos(navController)
+                        else -> ListDistritos(navController)
+                    }
+                    //Log.e("asd",rutaInicial)
+                }else {
+                    var slash = rutaInicial.indexOf("/")
+                    var igual = rutaInicial.indexOf("=")
+                    var uno = rutaInicial.substring(0, slash)
+                    var dos = rutaInicial.substring(igual+1, rutaInicial.length)
+                    //Log.e("asd",uno)
+                    //Log.e("asd",dos)
+                    when(uno){
+                        "distritos_screen"-> ListCandidatosDistrito(dos, navController)
+                        "partidos_screen"-> ListCandidatosPartido(dos, navController)
+                        else -> ListDistritos(navController)
+                    }
+                }
             }
         }
     }
@@ -229,4 +225,3 @@ fun BottomNavigation(navController: NavController) {
         }
     }
 }
-
